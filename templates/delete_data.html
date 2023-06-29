@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Подтверждение - Удалить запись</title>
+    <style>
+        body {
+            background-color: #f8f8f8;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .container2 {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 5px;
+             text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+             text-align: center;
+        }
+
+        p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 5px;
+             text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #ff6666;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+                        text-align: center;
+            position: relative;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+    </style>
+</head>
+<body>
+{% extends 'home.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <h2>Подтверждение - Удалить запись</h2>
+        <p>Вы уверены, что хотите удалить эту запись?</p>
+        <div class="container2">
+            <p>ID: {{ data.id }}</p>
+            <p>Title: {{ data.title }}</p>
+            <p>Description: {{ data.data }}</p>
+        </div>
+        <form method="post" action="{% url 'delete_data' data.id %}">
+            {% csrf_token %}
+            <br>
+            <button type="submit">Удалить</button>
+        </form>
+    </div>
+{% endblock %}
+</body>
+</html>
+

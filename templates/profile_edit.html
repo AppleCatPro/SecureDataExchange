@@ -1,0 +1,167 @@
+{#<!DOCTYPE html>#}
+{#<html>#}
+{#<head>#}
+{#    <title>Profile</title>#}
+{#</head>#}
+{#<body>#}
+{#    <h1>Profile</h1>#}
+{##}
+{#    {% if messages %}#}
+{#    <ul class="messages">#}
+{#        {% for message in messages %}#}
+{#        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>#}
+{#        {% endfor %}#}
+{#    </ul>#}
+{#    {% endif %}#}
+{##}
+{#    <form method="post" action="{% url 'profile' %}">#}
+{#        {% csrf_token %}#}
+{#        {{ form.as_p }}#}
+{#        <button type="submit">Update</button>#}
+{#    </form>#}
+{#</body>#}
+{#</html>#}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: "Arial", sans-serif;
+        }
+
+        h1 {
+            font-size: 32px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        form {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        form p {
+            margin-bottom: 10px;
+        }
+
+        input[type="text"], input[type="password"] {
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #222;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #444;
+        }
+
+        .messages {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .messages li {
+            margin-bottom: 10px;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .container {
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 70px;
+            margin-top: 60px;
+            background-color: #222;
+            border-radius: 10px;
+        }
+
+        h2 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 30px;
+
+        }
+    </style>
+</head>
+<body>
+{#{% extends 'home.html' %}#}
+{#{% load static %}#}
+{#{% block content %}#}
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<form method="post" action="{% url 'profile' %}">
+    <div class="container">
+        <h2>Редактирование Profile</h2>
+        {% csrf_token %}
+        <p>
+            <label for="id_username">Username:</label>
+            {{ form.username }}
+        </p>
+        <p>
+            <label for="id_email">Email:</label>
+            {{ form.email }}
+        </p>
+        <p>
+            <label for="id_first_name">First Name:</label>
+            {{ form.first_name }}
+        </p>
+        <p>
+            <label for="id_last_name">Last Name:</label>
+            {{ form.last_name }}
+        </p>
+        <p>
+            <label for="id_last_name">Дата рождения:</label>
+            {{ form.birth_date }}
+        </p>
+        <p>
+            <label for="id_last_name">Город:</label>
+            {{ form.city }}
+        </p>
+        <p>
+            <label for="id_last_name">Страна:</label>
+            {{ form.country }}
+        </p>
+
+        <p>
+            <label for="id_photo">Photo:</label>
+            {{ form.photo }}
+        </p>
+        <button type="submit">Update</button>
+    </div>
+</form>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+{#{% endblock %}#}
+</body>
+</html>

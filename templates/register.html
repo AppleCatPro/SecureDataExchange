@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Регистрация</title>
+    <style>
+        body {
+            background-color: #f8f8f8;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            margin-top: 100px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="password"] {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            position: relative;
+            left: 50%;
+            transform: translate(-50%, 0);
+            text-align: center;
+
+        }
+
+        .form-group input[type="submit"] {
+            width: 60%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #ff6666;
+            color: #fff;
+            cursor: pointer;
+            position: relative;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+
+        .form-group input[type="submit"]:hover {
+            background-color: #ff4d4d;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Регистрация</h1>
+    <form method="post" action="{% url 'register' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {#        <div class="form-group">#}
+        {#            <label for="username">Имя пользователя</label>#}
+        {#            <input type="text" id="username" name="username" required>#}
+        {#        </div>#}
+        {##}
+        {#        <div class="form-group">#}
+        {#            <label for="username">Имя:</label>#}
+        {#            <input type="text" id="first_name" name="first_name" required>#}
+        {#        </div>#}
+        {#        <div class="form-group">#}
+        {#            <label for="username">Фамилия:</label>#}
+        {#            <input type="text" id="last_name" name="last_name" required>#}
+        {#        </div>#}
+        {#        <div class="form-group">#}
+        {#            <label for="username">День рождения:</label>#}
+        {#            <input type="text" id="birth_date" name="birth_date" required>#}
+        {#        </div>#}
+        {#        <div class="form-group">#}
+        {#            <label for="username">Email:</label>#}
+        {#            <input type="text" id="email" name="email" required>#}
+        {#        </div>#}
+        {#        <div class="form-group">#}
+        {#            <label for="username">Гендер:</label>#}
+        {#            <input type="text" id="gender" name="gender" required>#}
+        {##}
+        {#            <p>#}
+        {#                    <label for="id_gender">Гендер:</label>#}
+        {#                <select name="gender" id="id_gender">#}
+        {#                    <option value="Ж">Женский</option>#}
+        {##}
+        {#                    <option value="М" selected="">Мужской</option>#}
+        {##}
+        {#                </select>#}
+        {##}
+        {##}
+        {#            </p>#}
+        {##}
+        {#        </div>#}
+        {#        <div class="form-group">#}
+        {#            <label for="username">Фото профиля:</label>#}
+        {#                        <input type="text" id="photo" name="photo" required>#}
+        {#            <input type="file" name="user_photos" accept="image/*" id="id_profile_picture" required>#}
+        {#        </div>#}
+        {#        <div class="form-group">#}
+        {#            <label for="username">Город:</label>#}
+        {#            <input type="text" id="city" name="city" required>#}
+        {#        </div>#}
+        {#        <div class="form-group">#}
+        {#            <label for="username">Страна:</label>#}
+        {#            <input type="text" id="country" name="country" required>#}
+        {#        </div>#}
+        {#        <div class="form-group">#}
+        {#            <label for="username">Пароль:</label>#}
+        {#            <input type="text" id="password1" name="password1" required>#}
+        {#        </div>#}
+        {#        <div class="form-group">#}
+        {#            <label for="username">Подтвердите пароль:</label>#}
+        {#            <input type="text" id="password2" name="password2" required>#}
+        {#        </div>#}
+
+        {{ form.as_p }}
+
+        <div class="form-group">
+            <input type="submit" value="Зарегистрироваться">
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,242 @@
+{#<!DOCTYPE html>#}
+{#<html>#}
+{#<head>#}
+{#    <title>Dashboard</title>#}
+{#    <style>#}
+{#        body {#}
+{#            background-color: #000;#}
+{#            color: #fff;#}
+{#            font-family: "Arial", sans-serif;#}
+{#        }#}
+{##}
+{#        h1 {#}
+{#            font-size: 32px;#}
+{#            text-align: center;#}
+{#            margin-top: 50px;#}
+{#        }#}
+{##}
+{#        h2 {#}
+{#            font-size: 24px;#}
+{#            text-align: center;#}
+{#            margin-top: 30px;#}
+{#        }#}
+{##}
+{#        table {#}
+{#            margin: 0 auto;#}
+{#            border-collapse: collapse;#}
+{#            width: 80%;#}
+{#            margin-top: 50px;#}
+{#        }#}
+{##}
+{#        th, td {#}
+{#            padding: 10px;#}
+{#            text-align: left;#}
+{#        }#}
+{##}
+{#        th {#}
+{#            background-color: #222;#}
+{#            color: #fff;#}
+{#            font-size: 18px;#}
+{#        }#}
+{##}
+{#        td {#}
+{#            background-color: #444;#}
+{#            color: #fff;#}
+{#            font-size: 16px;#}
+{#        }#}
+{##}
+{#        tr:nth-child(even) {#}
+{#            background-color: #333;#}
+{#        }#}
+{##}
+{#        .edit-button {#}
+{#            padding: 5px 10px;#}
+{#            background-color: #222;#}
+{#            color: #fff;#}
+{#            border: none;#}
+{#            cursor: pointer;#}
+{#        }#}
+{##}
+{#        .edit-button:hover {#}
+{#            background-color: #444;#}
+{#        }#}
+{##}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{#    <br>#}
+{#    <br>#}
+{#    <h1>Добро пожаловать на Dashboard</h1>#}
+{##}
+{#    <h2>Confidential Data</h2>#}
+{##}
+{#    <table>#}
+{#        <thead>#}
+{#            <tr>#}
+{#                <th>ID</th>#}
+{#                <th>CD</th>#}
+{#                <th>Title</th>#}
+{#                <th>Description</th>#}
+{#                <th>Created</th>#}
+{#                <th>Up</th>#}
+{#                <th>Кнопки</th>#}
+{#            </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#            {% for data in confidential_data %}#}
+{#            <tr>#}
+{#                <td>{{ data.id }}</td>#}
+{#                <td>{{ data }}</td>#}
+{#                <td>{{ data }}</td>#}
+{#                <td>{{ data }}</td>#}
+{#                <td>{{ data.created_at }}</td>#}
+{#                <td>{{ data.updated_at }}</td>#}
+{#                <td>#}
+{#                    <form method="GET" action="{% url 'view_data' data_id=data.id %}" style="display: inline;">#}
+{#                        {% csrf_token %}#}
+{#                        <button class="edit-button">Просмотр</button>#}
+{#                    </form>#}
+{#                    <form method="GET" action="{% url 'edit_data' data_id=data.id %}" style="display: inline;">#}
+{#                        {% csrf_token %}#}
+{#                        <button class="edit-button">Изменить</button>#}
+{#                    </form>#}
+{#                    <form method="GET" action="{% url 'delete_data' data_id=data.id %}" style="display: inline;">#}
+{#                        {% csrf_token %}#}
+{#                        <button class="edit-button">Удалить</button>#}
+{#                    </form>#}
+{#                </td>#}
+{#            </tr>#}
+{#            {% endfor %}#}
+{#        </tbody>#}
+{#    </table>#}
+{#</body>#}
+{#</html>#}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <style>
+        body {
+            background-color: #f8f8f8;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+        {#max-width: ;#} margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #eee;
+            font-weight: bold;
+        }
+
+        .edit-button {
+            padding: 5px 10px;
+            background-color: #ff6666;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .links a {
+            display: inline-block;
+            margin: 0 10px;
+            color: #333;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        .links a:hover {
+            color: #ff6666;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Добро пожаловать на Dashboard</h1>
+    <h2>Confidential Data</h2>
+    <div class="links">
+        <a href="{% url 'data_create' %}">Создать Confidential Data</a>
+    </div>
+    <br>
+    <br>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>CD</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Кнопки</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for data in confidential_data %}
+            <tr>
+                <td>{{ data.id }}</td>
+                <td>#</td>
+                <td>{{ data.title }}</td>
+                <td>**********</td>
+                <td>{{ data.created_at }}</td>
+                <td>{{ data.updated_at }}</td>
+                <td>
+                    <form method="GET" action="{% url 'view_data' data_id=data.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button class="edit-button">Просмотр</button>
+                    </form>
+                    <form method="GET" action="{% url 'edit_data' data_id=data.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button class="edit-button">Изменить</button>
+                    </form>
+                    <form method="GET" action="{% url 'delete_data' data_id=data.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button class="edit-button">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

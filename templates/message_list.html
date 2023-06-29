@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Сообщения</title>
+    <style>
+        body {
+            background-color: #f8f8f8;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .links a {
+            display: inline-block;
+            margin: 0 10px;
+            color: #333;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        .links a:hover {
+            color: #ff6666;
+        }
+
+        .messages {
+            margin-top: 30px;
+        }
+
+        .tab {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 10px 20px;
+            background-color: #ff6666;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .tab.active {
+            background-color: #fff;
+            color: #ff6666;
+        }
+
+        .tab-content {
+            display: none;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-top: -1px;
+            border-radius: 0 5px 5px 5px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .message-block {
+            margin-bottom: 20px;
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        .message-block.unread {
+            background-color: #e8f7ff;
+        }
+
+        .message-block h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .message-block p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .message-block a {
+            color: #ff6666;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .unread-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #ff6666;
+            color: #fff;
+            font-size: 14px;
+            border-radius: 10px;
+        }
+    </style>
+    <script>
+        function openTab(event, tabName) {
+            var i, tabContent, tabLinks;
+
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].style.display = "none";
+            }
+
+            tabLinks = document.getElementsByClassName("tab");
+            for (i = 0; i < tabLinks.length; i++) {
+                tabLinks[i].className = tabLinks[i].className.replace(" active", "");
+            }
+
+            document.getElementById(tabName).style.display = "block";
+            event.currentTarget.className += " active";
+        }
+
+        function markAsRead(messageId) {
+            var messageBlock = document.getElementById(messageId);
+            messageBlock.classList.remove("unread");
+            var unreadBadge = messageBlock.getElementsByClassName("unread-badge")[0];
+            unreadBadge.style.display = "none";
+        }
+    </script>
+</head>
+<body>
+{% extends 'home.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <h1>Сообщения</h1>
+        <div class="links">
+            <a href="{% url 'message_create' %}">Написать сообщение</a>
+        </div>
+        <div class="messages">
+            <div class="tabs">
+                <div class="tab active" onclick="openTab(event, 'incoming')">Входящие</div>
+                <div class="tab" onclick="openTab(event, 'sent')">Отправленные</div>
+            </div>
+
+            <div id="incoming" class="tab-content active">
+                <h2>Входящие сообщения</h2>
+                {% if incoming_messages %}
+                    <ul>
+                        {% for message in incoming_messages %}
+                            <li class="message-block{% if not message.is_read %} unread{% endif %}"
+                                id="{{ message.pk }}">
+                                {% if not message.is_read %}
+                                    <span class="unread-badge">Новое</span>
+                                {% endif %}
+                                <h2>{{ message.subject }}</h2>
+                                <p>From: {{ message.sender.username }}</p>
+                                <p>{{ message.content }}</p>
+                                <p><a href="{% url 'message_detail' message.pk %}"
+                                      onclick="markAsRead('{{ message.pk }}')">Подробнее</a></p>
+
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Нет входящих сообщений.</p>
+                {% endif %}
+            </div>
+
+            <div id="sent" class="tab-content">
+                <h2>Отправленные сообщения</h2>
+                {% if sent_messages %}
+                    <ul>
+                        {% for message in sent_messages %}
+                            <li class="message-block">
+                                <h2>{{ message.subject }}</h2>
+                                <p>To: {{ message.recipient.username }}</p>
+                                <p>{{ message.content }}</p>
+                                <p><a href="{% url 'message_detail' message.pk %}">Подробнее</a></p>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Нет отправленных сообщений.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+</body>
+</html>

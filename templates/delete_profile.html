@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Удаление профиля</title>
+</head>
+<body>
+    <h2>Вы уверены, что хотите удалить свой профиль?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Удалить профиль</button>
+    </form>
+</body>
+</html>

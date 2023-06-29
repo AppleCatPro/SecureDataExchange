@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Подробная информация о сообщении</title>
+    <style>
+        body {
+            background-color: #f8f8f8;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 500px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+
+        a {
+            color: #ff6666;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #ff6666;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Подробная информация о сообщении</h2>
+        <p><strong>Тема:</strong> {{ message.subject }}</p>
+        <p><strong>Отправитель:</strong> {{ message.sender.username }}</p>
+        <p><strong>Получатель:</strong> {{ message.recipient.username }}</p>
+        <p><strong>Текст Сообщения:</strong> {{ message.content }}</p>
+
+        {% if message.attached_data %}
+            <p><strong>Confidential Data:</strong> <a href="{% url 'view_data' data_id=message.attached_data.id %}">{{ message.attached_data.title }}</a></p>
+        {% endif %}
+
+        <form method="post" action="{% url 'message_detail' message.id %}">
+            {% csrf_token %}
+            <!-- Остальное содержимое сообщения -->
+            <button type="submit" name="delete">Удалить сообщение</button>
+        </form>
+    </div>
+</body>
+</html>
